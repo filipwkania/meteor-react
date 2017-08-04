@@ -1,11 +1,28 @@
-import React from 'react';
+import React, {Component} from 'react';
+import { createPlayer } from './../api/players';
 
-export default function(props) {
-  return (
-    <form onSubmit={props.onSubmit}>  
-      <input type="text" name="name" placeholder="player's name" defaultValue=''/>
-      <input type="text" name="score" placeholder="score" defaultValue=''/>
-      <button type="submit">Add player</button>
-    </form>
-  );
+export default class NewPlayerForm extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  render() {
+    return (
+      <div className="item">
+        <form className="form" onSubmit={this.handleSubmit}>  
+          <input className="form__input" type="text" name="name" placeholder="player's name" defaultValue=''/>
+          <button type="submit" className="button">Add player</button>
+        </form>
+      </div>
+    );
+  }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    let name = e.target.name.value;
+
+    if(name) {
+      createPlayer(name, 0);
+    }
+  }
 }

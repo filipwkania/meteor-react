@@ -1,0 +1,31 @@
+/* SCSS declarations go here */
+$text-color-main: #990000;
+$body-color-main: #555555;
+$font-main: Helvetica, Arial, sans-serif; 
+
+* {
+  padding: 0; 
+  margin: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  color: $body-color-main;
+  font-family: $font-main;
+  background: #f2f2f2;
+  font-size: 1.6rem;
+}
+
+input, button, select {
+  font-size: 1.3rem;
+}
+
+@import './components/wrapper';
+@import './components/title-bar';
+@import './components/item';
+@import './components/button';
+@import './components/player';
+@import './components/form';

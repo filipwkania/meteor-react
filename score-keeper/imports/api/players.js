@@ -1,9 +1,14 @@
 import { Mongo } from 'meteor/mongo';
+import numeral from   'numeral';
 
 const players = new Mongo.Collection('players');
 
 export function getPlayers() {
-  return players.find().fetch();
+  return players.find({}, { 
+    sort: {
+       score: -1
+    }
+  }).fetch(); 
 }
 
 export function createPlayer( name = 'NoName', score = 0 ) {
@@ -24,4 +29,19 @@ export function updateScore( id , shouldIncrement ) {
       $inc: { score: -1 }
     });
   }
+}
+
+export const calculatePlayerPositions = (players) => {
+  let rank = 1;
+
+  return players.map( (player, index) => {
+    index !== 0 && players[index-1].score > player.score ?
+      rank++ : null;
+    
+      return {
+        ...player,
+        rank,
+        position: numeral(rank).format('0o')
+      };
+  });
 }
